@@ -277,7 +277,7 @@
         <div class="row" data-aos="fade-up" data-aos-delay="100">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter="*" class="filter-active">Top</li>
               <li data-filter=".filter-app">App</li>
               <li data-filter=".filter-card">Card</li>
               <li data-filter=".filter-web">Web</li>
@@ -289,13 +289,13 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
+              <img src="assets/img/products/remote stand/front.png" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>App</p>
+                <h4>Remote Stand</h4>
+                <p>Stands</p>
                 <div class="portfolio-links">
-                  <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                  <a href="assets/img/products/remote stand/front.png" data-gallery="remote stand" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                  <a href="products/remote_stand.html" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
               </div>
             </div>
@@ -303,27 +303,27 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+              <img src="assets/img/products/4 section dryfruit box/1.jpg" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
+                <h4>4 section dryfruit box</h4>
+                <p>Jars & Containers</p>
                 <div class="portfolio-links">
-                  <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                  <a href="assets/img/products/4 section dryfruit box/1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="products/section4_dryfruit_box.html" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
+              <img src="assets/img/products/7 section spice box/1.jpg" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
+                <h4>7 section spice box</h4>
+                <p>Jars & Containers</p>
                 <div class="portfolio-links">
-                  <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                  <a href="assets/img/products/7 section spice box/1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="products/section7_spice_box.html" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
               </div>
             </div>
@@ -715,8 +715,8 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
             </ul>
@@ -774,7 +774,58 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
+  <script>
+    // Function to load images from the specified folder
+    function loadImages(folder) {
+      const imageContainer = document.getElementById('image-container');
+      imageContainer.innerHTML = ''; // Clear any existing content
+  
+      // Fetch image links from the portfolio-links div
+      const links = document.querySelectorAll(`.portfolio-links a[data-gallery="${folder}"]`);
+      links.forEach(link => {
+        const imgSrc = link.getAttribute('href');
+        const div = document.createElement('div');
+        div.className = 'swiper-slide';
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = '';
+        div.appendChild(img);
+        imageContainer.appendChild(div);
+      });
+    }
+  
+    // Function to load portfolio details from JSON file
+    function loadPortfolioDetails(folder) {
+      const detailsUrl = `assets/img/products/${folder}/details.json`; // Path to your JSON file
+      
+      fetch(detailsUrl)
+        .then(response => response.json())
+        .then(data => {
+          const detailsContainer = document.getElementById('portfolio-details');
+          const descriptionContainer = document.getElementById('description-text');
+  
+          detailsContainer.innerHTML = `
+            <li><strong>Category</strong>: ${data.Category}</li>
+            <li><strong>Client</strong>: ${data.Client}</li>
+            <li><strong>Project date</strong>: ${data['Project date']}</li>
+            <li><strong>Project URL</strong>: <a href="${data['Project URL']}">${data['Project URL']}</a></li>
+          `;
+  
+          descriptionContainer.textContent = data['portfolio-description'];
+        })
+        .catch(error => console.error('Error loading portfolio details:', error));
+    }
+  
+    // Initialize functions based on the data-gallery attribute
+    document.addEventListener('DOMContentLoaded', () => {
+      const portfolioLinks = document.querySelector('.portfolio-links');
+      const folder = portfolioLinks.getAttribute('data-gallery');
+      
+      loadImages(folder);
+      loadPortfolioDetails(folder);
+    });
+  </script>
+  
 </body>
 
 </html>
